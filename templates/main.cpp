@@ -38,6 +38,7 @@ template<typename T> void read(vt<T> &v) {
 }
 
 
+
 void solve() {
 	;
 }
