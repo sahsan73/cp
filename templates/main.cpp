@@ -21,3 +21,35 @@ const double EPS = 1e-9;
 template<typename T> void read(T &x) {
     cin >> x;
 }
+void read(double &d) {
+    string s; read(s);
+    d = stod(s);
+}
+void read(ld &d) {
+    string s; read(s);
+    d = stold(s);
+}
+template<typename T, typename...H> void read(T &t, H&... h) {
+    read(t);
+    read(h...);
+}
+template<typename T> void read(vt<T> &v) {
+    for(auto &x: v) read(x);
+}
+
+
+
+
+void solve() {
+    ;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int t = 1;
+    cin >> t;
+    while(t--) solve();
+    return 0;
+}
