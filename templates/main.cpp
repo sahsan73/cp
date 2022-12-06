@@ -37,6 +37,48 @@ template<typename T> void read(vt<T> &v) {
     for(auto &x: v) read(x);
 }
 
+string to_string(char c) {
+    return string(1,c);
+}
+string to_string(bool b) {
+    return b?"true":"false";
+}
+string to_string(const char *s) {
+    return string(s);
+}
+string to_string(const string &s) {
+    return s;
+}
+template<typename T> string to_string(const T &v) {
+    bool f=1;
+    string res;
+    for(const auto &x: v) {
+        if(!f) res+=' ';
+        res+=to_string(x);
+        f=0;
+    }
+    return res;
+}
+string to_string(const vt<bool> &v) {
+    string res;
+    for(const auto &x: v) res+=char(x+'0');
+    return res;
+}
+template<size_t N> string to_string(const bitset<N> &bs) {
+    string ans;
+    for(int i=N-1; ~i; --i) res+=char(bs[i]+'0');
+    return ans;
+}
+
+void write() {
+    cout << '\n';
+}
+template<typename T, typename...H> void write(const T &t, const H&...h) {
+    cout << to_string(t);
+    if(sizeof...(h)) cout << ' ';
+    
+    write(h...)
+}
 
 
 
