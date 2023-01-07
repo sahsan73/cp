@@ -1,6 +1,7 @@
 /*
 APPROACH:
-    - Divide the array into halves recursively until it becomes trivial to solve it directly i.e., when size becomes one
+    - Divide the array into halves (disjoint/independent subproblems) recursively 
+      until it becomes trivial to solve it directly i.e., when size becomes one.
     - Merge the two sorted subarrays at returning time
     
     - Time Complexity: O(nlogn)
