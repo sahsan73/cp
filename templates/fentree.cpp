@@ -10,9 +10,9 @@ struct FenTree {
 	}
 
 	ll qry(int i) {
-		ll r=0;
-		for(++i; i; i-=i&-i)
-			r+=a[i];
-		return r;
+		ll res=0;
+		for(; i>0; i-=i&-i)
+			res+=a[i];
+		return res;
 	}
 } ft;
