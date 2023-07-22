@@ -22,15 +22,6 @@ void dfs(int u=0, int p=-1) {
 	}
 }
 
-int qry(int u, int k) {
-	if(d[u]<k) return -1;
-	for(int j=19; ~j; --j) {
-		if(k&(1<<j))
-			u=anc[u][j];
-	}
-	return u+1;
-}
-
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -45,7 +36,15 @@ int main() {
 	while(q--) {
 		int x, k;
 		cin >> x >> k, --x; 
-		cout << qry(x, k) << "\n";
+		if(d[x]<k) {
+			cout << -1 << "\n";
+		} else {
+			for(int j=19; ~j; --j) {
+				if(k&(1<<j))
+					x=anc[x][j];
+			}
+			cout << x+1 << "\n";
+		}
 	}
 
 	return 0;
