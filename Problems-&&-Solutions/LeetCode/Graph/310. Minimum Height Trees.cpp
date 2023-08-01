@@ -6,6 +6,11 @@ This problem is same as CSES problem: Distance Tree I
     - Solution: https://github.com/sahsan73/cp/blob/main/Problems-&&-Solutions/CSES/Tree%20Algorithms/Tree%20Distances%20I.cpp
 */
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+APPROACH: RE-ROOTING OF TREES
+*/
 const int mxN = 2e4;
 #define ar array
 
@@ -67,6 +72,54 @@ public:
         for(int i=0; i<n; ++i) {
             if(ans[i] == mn)
                 answer.push_back(i);
+        }
+        return answer;
+    }
+};
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+APPROACH: MULTI-SOURCE BFS
+    - Read editorial for explanation!!
+*/
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges) {
+        vector<int> adj[n], deg(n, 0);
+        for(auto &e: edges) {
+            int u = e[0], v = e[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+            ++deg[u], ++deg[v];
+        }
+
+        vector<bool> vis(n, false);
+        queue<int> q;
+        for(int i=0; i<n; ++i) {
+            // deg[i] < 1 handles a case where n == 1 i.e., single node and no edges
+            if(deg[i] <= 1) { // both deg[i]==1 and adj[i].size() == 1 are same!
+                q.push(i);
+                vis[i] = 1;
+            }
+        }
+
+        vector<int> answer;
+        while(!q.empty()) {
+            int sz = (int)q.size();
+            answer.clear();
+            while(sz--) {
+                int u = q.front();
+                q.pop();
+                answer.push_back(u);
+
+                for(int v: adj[u]) {
+                    --deg[v];
+                    if(deg[v] == 1)
+                        q.push(v);
+                }
+            }
         }
         return answer;
     }
