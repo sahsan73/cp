@@ -34,9 +34,6 @@ void solve(int s, vector<ar<ll, 2>> adj[mxN], ll d[mxN]) {
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-
 	cin >> n >> m;
 	for(int i=0, a, b, w; i<m; ++i) {
 		cin >> a >> b >> w, --a, --b;
