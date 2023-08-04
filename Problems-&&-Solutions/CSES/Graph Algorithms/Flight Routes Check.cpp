@@ -2,6 +2,16 @@
 Problem Statement: https://cses.fi/problemset/task/1682
 */
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+APPROACH: KOSARAJU'S ALGORITHM
+	- Strongly Connected Components
+
+COMPLEXITY:
+	- O(n+m)
+ 	- O(n+m)
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
