@@ -8,7 +8,7 @@ APPROACH: MST
 */
 class Solution {
 private:
-    int p[1000000], s[1000000];
+    int p[1000], s[1000];
     vector<array<int, 3>> e;
 
     int find(int u) {
@@ -40,8 +40,8 @@ public:
             return e1[2] < e2[2];
         });
         int answer = 0;
-        iota(p, p+n*n, 0);
-        fill(s, s+n*n, 1);
+        iota(p, p+n, 0);
+        fill(s, s+n, 1);
         for(int i=0; i<e.size(); ++i) {
             if(join(e[i][0], e[i][1]))
                 answer += e[i][2];
