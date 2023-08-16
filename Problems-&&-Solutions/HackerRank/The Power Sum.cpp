@@ -2,9 +2,9 @@
 Problem Statement: https://www.hackerrank.com/challenges/the-power-sum/problem?isFullScreen=true
 
 APPROACH:
-    1^N + 2^N + 3^N + ... + Y^N = X
-    We can find out max value of Y, when there exist a single solution for X (i.e., Y^N = X)
-                              Y <= X^(1/N)
+    - Suppose, 1^N + 2^N + 3^N + ... + Y^N = X     (Note: ^ denotes power!)
+    - We can find out max value of Y, when there exist a single solution for X (i.e., Y^N = X)
+      so,                        Y <= X^(1/N)
 
 COMPLEXITY:
     TC = 2^Y
