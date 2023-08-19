@@ -2,6 +2,38 @@
 Problem Statement: https://practice.geeksforgeeks.org/problems/perfect-sum-problem5633/1
 */
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+Implementation: Bottom-Up(Iteration + Tabulation)
+*/
+class Solution {
+private:
+    const int M = 1000000007;
+    
+public:
+	int perfectSum(int arr[], int n, int sum) {
+        // Your code goes here
+        vector<vector<int>> dp(n+1, vector<int>(sum+1, 0));
+        for(int i=0; i<=n; ++i) dp[i][0] = 1;
+        
+        for(int i=1; i<=n; ++i) {
+            for(int j=0; j<=sum; ++j) {
+                int exclude = dp[i-1][j];
+                int include = (j >= arr[i-1]) ? dp[i-1][j-arr[i-1]] : 0;
+                
+                dp[i][j] = (exclude + include)%M;
+            }
+        }
+        
+        return dp[n][sum];
+	}
+	  
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+Implementation: Top-Down(Recursion + Memoization)
+*/
 class Solution {
 private:
     vector<vector<int>> dp;
