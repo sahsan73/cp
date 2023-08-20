@@ -1,7 +1,8 @@
 /*
 Problem Statement: https://www.spoj.com/problems/BUSYMAN/
 
-Standard Greedy Algorithm - An Activity Selection Problem / Scheduling Intervals
+Standard Greedy Algorithm : An Activity Selection Problem / Scheduling Intervals
+	- Sort the intervals by their finishing time
 
 In other words - find the maximum number of non-overlapping intervals.
 */
@@ -9,7 +10,6 @@ In other words - find the maximum number of non-overlapping intervals.
 using namespace std;
 
 #define ar array
-
 const int mxN=1e5;
 int n;
 ar<int, 2> a[mxN];
