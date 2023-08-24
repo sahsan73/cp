@@ -16,7 +16,7 @@ public:
 
         int dp[101][101];
         memset(dp, 0, sizeof(dp));
-        dp[0][0] = 1, dp[1][0] = s1.front()==s3.front(), dp[0][1] = s2.front()==s3.front();
+        dp[0][0] = 1;
         for(int i=0; i<=m; ++i) {
             for(int j=0; j<=n; ++j) {
                 if(i>=1 && s1[i-1] == s3[(i+j-1)] && dp[i-1][j])
