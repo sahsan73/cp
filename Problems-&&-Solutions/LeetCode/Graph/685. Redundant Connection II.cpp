@@ -74,6 +74,8 @@ public:
             if(dsu.union_sets(e[0], e[1])) {
                 // don't simply return e, take the example --> [[2,1],[3,1],[4,2],[1,4]] : Case-III
                 // don't simply return e1, take the example --> [[1,2],[2,3],[3,1]] : Case-II
+                // the point is, we don't know the order of edges so if current edge e causes cycle
+                // that NOT necessarily be the e1.
                 return !e1.empty() ? e1 : e;
             }
         }
