@@ -1,4 +1,8 @@
 /*
+This problem is same as CSES problem "Movie Festival"
+	- problem statement: https://cses.fi/problemset/task/1629
+ 	- solution: https://github.com/sahsan73/cp/blob/main/Problems-%26%26-Solutions/CSES/Sorting%20and%20Searching/Movie%20Festival.cpp
+
 Problem Statement: https://www.spoj.com/problems/BUSYMAN/
 
 Standard Greedy Algorithm : An Activity Selection Problem / Scheduling Intervals
@@ -6,6 +10,7 @@ Standard Greedy Algorithm : An Activity Selection Problem / Scheduling Intervals
 
 In other words - find the maximum number of non-overlapping intervals.
 */
+
 #include <bits/stdc++.h>
 using namespace std;
 
