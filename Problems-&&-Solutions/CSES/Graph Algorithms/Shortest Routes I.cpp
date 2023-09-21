@@ -14,9 +14,10 @@ int main() {
 	cin.tie(0);
 
 	cin >> n >> m;
-	for(int i=0, a, b, w; i<m; ++i) {
-		cin >> a >> b >> w, --a, --b;
-		adj[a].push_back({w, b});
+	for(int i=0,; i<m; ++i) {
+		ll a, b, c;
+		cin >> a >> b >> c, --a, --b;
+		adj[a].push_back({c, b});
 	}
 
 	memset(d, 0x3f, sizeof(d));
