@@ -37,34 +37,46 @@ APPROACH: D&C
 using namespace std;
 using ll=long long;
 
+#define ar array
+
 const int mxN=2e5;
 int n;
 ll x[mxN];
 
-ll dfs(int l=0, int r=n-1) {
-	if(l==r)
-		return x[l];
-	
-	int m=(l+r)/2;
-	ll ml=dfs(l, m); // maximum left subarray sum
-	ll mr=dfs(m+1, r); // maximum right subarray sum
+ll dfs(int i, int j) {
+	if(i==j)
+		return x[i];
+	int m=(i+j)/2;
+	ll ls=dfs(i, m);
+	ll rs=dfs(m+1, j);
 
-	// crossing the midpoint
-	ll s=0LL, ls=-1e18;
-	for(int i=m; i>=l; --i)
-		s+=x[i], ls=max(ls, s);
-	s=0LL; ll rs=-1e18;
-	for(int i=m+1; i<=r; ++i)
-		s+=x[i], rs=max(rs, s);
-	return max({ml, mr, ls+rs});
+	ll cs=-1e18, s=0; // cs --> crossing sum (left)
+	for(int k=m; k>=i; --k) {
+		s+=x[k];
+		cs=max(cs, s);
+	}
+	ll cs2=-1e18, s2=0; // crossing sum (right)
+	for(int k=m+1; k<=j; ++k) {
+		s2+=x[k];
+		cs2=max(cs2, s2);
+	}
+	return max({ls, (cs+cs2), rs});
 }
 
-int main() {
+void solve() {
 	cin >> n;
 	for(int i=0; i<n; ++i)
 		cin >> x[i];
+	cout << dfs(0, n-1);
+}
 
-	cout << dfs();
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
+	int t=1;
+	//cin >> t;
+	while(t--)
+		solve();
 	return 0;
 }
