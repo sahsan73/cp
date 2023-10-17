@@ -13,26 +13,37 @@ COMPLEXITY:
 */
 #include <bits/stdc++.h>
 using namespace std;
-
+using ll=long long;
+ 
+#define ar array
+ 
 const int mxN=2e5;
-int n, a[mxN];
-
-int main() {
+int n, x[mxN];
+ 
+void solve() {
 	cin >> n;
 	for(int i=0; i<n; ++i)
-		cin >> a[i];
-
-	vector<int> sub{a[0]};
+		cin >> x[i];
+	vector<int> a={x[0]};
 	for(int i=1; i<n; ++i) {
-		if(a[i]>sub.back()) {
-			sub.push_back(a[i]);
-		} else {
-			int idx=lower_bound(sub.begin(), sub.end(), a[i])-sub.begin();
-			sub[idx]=a[i];
+		if(x[i]>a.back())
+			a.push_back(x[i]);
+		else {
+			auto idx=lower_bound(a.begin(), a.end(), x[i])-a.begin();
+			a[idx]=x[i];
 		}
 	}
-	cout << sub.size();
-
+	cout << a.size();
+}
+ 
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+ 
+	int t=1;
+	//cin >> t;
+	while(t--)
+		solve();
 	return 0;
 }
 
@@ -46,46 +57,54 @@ COMPLEXITY:
 */
 #include <bits/stdc++.h>
 using namespace std;
+using ll=long long;
+
+#define ar array
 
 const int mxN=2e5;
-int n, a[mxN], dp[mxN], ans;
+int n, x[mxN], ft[mxN+1];
 
-struct FenTree {
-	int a[mxN+1];
+void upd(int i, int x) {
+	for(++i; i<=n; i+=i&-i)
+		ft[i]=max(ft[i], x);
+}
 
-	void upd(int i, int x) {
-		for(++i; i<=n; i+=i&-i)
-			a[i]=max(a[i], x);
+int qry(int i) {
+	int res=0;
+	for(++i; i>0; i-=i&-i)
+		res=max(res, ft[i]);
+	return res;
+}
+
+void solve() {
+	cin >> n;
+	vector<int> x2(n);
+	for(int i=0; i<n; ++i)
+		cin >> x[i], x2[i]=x[i];
+	sort(x2.begin(), x2.end());
+	x2.erase(unique(x2.begin(), x2.end()), x2.end());
+	int a=0;
+	for(int i=0; i<n; ++i) {
+		int idx=lower_bound(x2.begin(), x2.end(), x[i])-x2.begin();
+		int cnt=qry(idx-1)+1;
+		upd(idx, cnt);
+		a=max(a, cnt);
 	}
-
-	int qry(int i) {
-		int r=0;
-		for(++i; i>0; i-=i&-i)
-			r=max(r, a[i]);
-		return r;
-	}
-} ft;
+	cout << a;
+}
 
 int main() {
-	cin >> n;
-	vector<int> b(n);
-	for(int i=0; i<n; ++i)
-		cin >> a[i], b[i]=a[i];
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
-	sort(b.begin(), b.end());
-	b.erase(unique(b.begin(), b.end()), b.end()); // unique and sorted values of a
-	
-	for(int i=0; i<n; ++i) {
-		int idx=lower_bound(b.begin(), b.end(), a[i])-b.begin();
-		dp[i]=ft.qry(idx-1)+1;
-		ft.upd(idx, dp[i]);
-
-		ans=max(ans, dp[i]);
-	}
-	cout << ans;
-
+	int t=1;
+	//cin >> t;
+	while(t--)
+		solve();
 	return 0;
 }
+// P.S.: Personal opinion --> This doesn't make sense this way, we still have to use lower_bound then why don't simply use binary
+// search method discussed above, this approach looks nice when we do not have duplicate items!
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -100,25 +119,35 @@ VERDICT: TLE, However, this solution is AC in LeetCode as their constraints are 
 */
 #include <bits/stdc++.h>
 using namespace std;
+using ll=long long;
+
+#define ar array
 
 const int mxN=2e5;
-int n, a[mxN], dp[mxN], ans;
+int n, x[mxN], dp[mxN];
 
-int main() {
+void solve() {
 	cin >> n;
 	for(int i=0; i<n; ++i)
-		cin >> a[i];
-
-	std::fill(begin(dp), end(dp), 1);
-	for(int i=1; i<n; ++i) {
-		for(int j=0; j<i; ++j) {
-			if(a[j]<a[i]) {
+		cin >> x[i];
+	fill(dp, dp+n, 1);
+	int a=1;
+	for(int i=0; i<n; ++i)
+		for(int j=0; j<i; ++j)
+			if(x[j]<x[i]) {
 				dp[i]=max(dp[i], 1+dp[j]);
-				ans=max(ans, dp[i]);
+				a=max(a, dp[i]);
 			}
-		}
-	}
-	cout << ans;
+	cout << a;
+}
 
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	int t=1;
+	//cin >> t;
+	while(t--)
+		solve();
 	return 0;
 }
