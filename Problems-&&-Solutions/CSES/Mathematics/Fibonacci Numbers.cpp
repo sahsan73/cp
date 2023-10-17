@@ -16,19 +16,14 @@ void multiply(ll y[2][2]) {
 	for(int i=0; i<2; ++i)
 		for(int j=0; j<2; ++j)
 			for(int k=0; k<2; ++k)
-				z[i][j]=(z[i][j]%M+(y[i][k]%M*x[k][j]%M)%M)%M;
+				z[i][j]=(z[i][j]+(y[i][k]*x[k][j])%M)%M;
 	memcpy(y, z, sizeof(z));
 }
 
 void solve() {
 	cin >> n;
-	if(n==0) {
-		cout << 0;
-		return;
-	}
-	ll y[2][2];
-	memcpy(y, x, sizeof(x));
-	--n;
+	ll y[2][2]={{}};
+	y[0][0]=y[1][1]=1;
 	while(n>0) {
 		if(n&1)
 			multiply(y);
