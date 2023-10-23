@@ -9,20 +9,30 @@ using ll=long long;
 #define ar array
 
 const int mxN=1e5;
-int n, m, vis[mxN], p[mxN], x, y;
+int n, m, vis[mxN], vis2[mxN], p[mxN];
 vector<int> adj[mxN];
 
 void dfs(int u) {
-	vis[u]=1;
+	vis[u]=vis2[u]=1;
 	for(int v: adj[u]) {
 		if(!vis[v]) {
 			p[v]=u;
 			dfs(v);
-		} else if(v!=p[u]) {
-			x=u, y=v;
-			return;
+		} else if(vis2[v]) {
+			int s=v, t=u;
+			vector<int> c;
+			c.push_back(s);
+			for(; t^s; t=p[t])
+				c.push_back(t);
+			c.push_back(s);
+			reverse(c.begin(), c.end());
+			cout << c.size() << "\n";
+			for(int i=0; i<c.size(); ++i)
+				cout << c[i]+1 << " ";
+			exit(0);
 		}
 	}
+	vis2[u]=0;
 }
 
 void solve() {
@@ -30,28 +40,12 @@ void solve() {
 	for(int i=0, a, b; i<m; ++i) {
 		cin >> a >> b, --a, --b;
 		adj[a].push_back(b);
-		adj[b].push_back(a);
 	}
-
-	memset(p, -1, sizeof(p));
-	x=y=-1;
 	for(int i=0; i<n; ++i) {
-		if(!vis[i]&&x==-1)
+		if(!vis[i])
 			dfs(i);
 	}
-	if(x==-1) {
-		cout << "IMPOSSIBLE";
-	} else {
-		vector<int> res;
-		res.push_back(x);
-		for(int i=y; i^x; i=p[i])
-			res.push_back(i);
-		res.push_back(x);
-		reverse(res.begin(), res.end());
-		cout << res.size() << "\n";
-		for(int i: res)
-			cout << i+1 << " ";
-	}
+	cout << "IMPOSSIBLE";
 }
 
 int main() {
