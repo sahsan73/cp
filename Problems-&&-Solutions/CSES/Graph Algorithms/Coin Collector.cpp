@@ -2,42 +2,42 @@
 Problem Statement: https://cses.fi/problemset/task/1686
 */
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
 APPROACH: KOSARAJU'S ALGORITHM + DYNAMIC PROGRAMMING
 */
+
 #include <bits/stdc++.h>
 using namespace std;
 using ll=long long;
 
-const int mxN=1e5;
-int n, m, who[mxN];
-ll k[mxN], k2[mxN], dp[mxN];
-vector<int> adj[mxN], adj2[mxN], adj3[mxN], st;
-bool vis[mxN];
+#define ar array
 
-// topo sort
-void dfs1(int u) {
+const int mxN=1e5;
+int n, m, k[mxN], who[mxN], vis[mxN];
+vector<int> adj[mxN], adj2[mxN], st, adj3[mxN];
+ll k2[mxN], dp[mxN];
+
+// toposort
+void dfs(int u) {
 	vis[u]=1;
-	for(int v: adj[u]) {
+	for(int v: adj[u])
 		if(!vis[v])
-			dfs1(v);
-	}
+			dfs(v);
 	st.push_back(u);
 }
 
-// kosaraju's scc
+// kosaraju's algorithm
 void dfs2(int u, int rp) {
 	vis[u]=0;
+	k2[rp]+=k[u];
 	who[u]=rp;
-	for(int v: adj2[u]) {
+	for(int v: adj2[u])
 		if(vis[v])
 			dfs2(v, rp);
-	}
-	k2[rp]+=k[u];
 }
 
+// dp to calculate max coins
 void dfs3(int u) {
 	vis[u]=1;
 	for(int v: adj3[u]) {
@@ -48,7 +48,7 @@ void dfs3(int u) {
 	dp[u]+=k2[u];
 }
 
-int main() {
+void solve() {
 	cin >> n >> m;
 	for(int i=0; i<n; ++i)
 		cin >> k[i];
@@ -57,19 +57,17 @@ int main() {
 		adj[a].push_back(b);
 		adj2[b].push_back(a);
 	}
-	
-	// for topo sort
-	for(int i=0; i<n; ++i) {
+
+	// toposort
+	for(int i=0; i<n; ++i)
 		if(!vis[i])
-			dfs1(i);
-	}
-	// kosaraju's scc
-	for(int i=n-1; ~i; --i) {
+			dfs(i);
+	// kosaraju's algorithm
+	for(int i=n-1; ~i; --i)
 		if(vis[st[i]])
 			dfs2(st[i], st[i]);
-	}
-	
-	// create condensed graph
+
+	// condensed adjacency matrix
 	for(int i=0; i<n; ++i) {
 		for(int j: adj[i]) {
 			if(who[i]==who[j])
@@ -77,14 +75,21 @@ int main() {
 			adj3[who[i]].push_back(who[j]);
 		}
 	}
+	// apply dp in order to calculate max coins
 	ll ans=0;
-	for(int i=0; i<n; ++i) {
-		if(!vis[i]&&who[i]==i) {
-			dfs3(i);
-			ans=max(ans, dp[i]);
-		}
-	}
+	for(int i=0; i<n; ++i)
+		if(!vis[i]&&who[i]==i)
+			dfs3(i), ans=max(ans, dp[i]);
 	cout << ans;
+}
 
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	int t=1;
+	//cin >> t;
+	while(t--)
+		solve();
 	return 0;
 }
