@@ -66,6 +66,9 @@ public:
             if(mstWtByExcluding > stdWt) {
                 critical.push_back(e[j][3]);
             } else { // check if the jth edge is a pseudo-critical edge
+                // if a question comes to your mind, how would you make sure that this edge would not
+                // come to all MSTs <-- If this were to come in all MSTs then obviously the edge would
+                // be the critical!
                 int mstWtByIncluding = computeMST(e, j, 1);
                 if(mstWtByIncluding == stdWt)
                     pseudoCritical.push_back(e[j][3]);
