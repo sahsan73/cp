@@ -53,6 +53,9 @@ void solve() {
 	//for(int i=0; i<n; ++i)
 		//cout << "(" << i+1 << ", " << p[i]+1 << ")" << "\n";
 	if(~x) {
+		// it is NOT necessary that the vextex x would belong to the negative cycle
+		// so we need to make sure the we are in the cycle ---> draw the above test
+		// cases on paper and see what's actually happening!
 		while(!vis[x]) {
 			vis[x]=1;
 			x=p[x];
