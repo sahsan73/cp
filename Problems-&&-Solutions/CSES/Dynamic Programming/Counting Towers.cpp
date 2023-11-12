@@ -9,36 +9,26 @@ using ll=long long;
 #define ar array
 
 const int mxN=1e6, M=1e9+7;
-int q, n;
-ll dp[mxN+1][2];
-
-void solve() {
-	// dp[0][i]=no. of ways, towers with i height can be built(from i-1 height tower) with when we have two blocks of width 1
-	// dp[1][i]=no. of ways towers, with i height can be built(from i-1 height tower) with when we have one block of width 2
-	// total ways for i height tower = dp[0][i] + dp[1][i]
-	dp[1][0]=dp[1][1]=1;
-	for(int i=2; i<=mxN; ++i) {
-		// we have two blocks of width 1
-		dp[i][0]=(4*dp[i-1][0]+dp[i-1][1])%M;
-
-		// we have one block of width 2
-		dp[i][1]=(2*dp[i-1][1]+dp[i-1][0])%M;
-	}
-
-	cin >> q;
-	while(q--) {
-		cin >> n;
-		cout << (dp[n][0]+dp[n][1])%M << "\n";
-	}
-}
+int n;
+ll dp[mxN+1][3];
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	int t=1;
-	//cin >> t;
-	while(t--)
-		solve();
+	// dp[i][j] --> no. of towers having height i with a
+	// block of width j
+	dp[1][1]=dp[1][2]=1;
+	for(int i=2; i<=mxN; ++i) {
+		dp[i][1]=(4*dp[i-1][1]+dp[i-1][2])%M;
+		dp[i][2]=(2*dp[i-1][2]+dp[i-1][1])%M;
+	}
+	
+	int t;
+	cin >> t;
+	while(t--) {
+		cin >> n;
+		cout << (dp[n][1]+dp[n][2])%M << "\n";
+	}
 	return 0;
 }
