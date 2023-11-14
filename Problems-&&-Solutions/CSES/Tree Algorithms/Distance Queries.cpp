@@ -1,3 +1,7 @@
+/*
+Problem Statement: https://cses.fi/problemset/task/1135
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -25,7 +29,7 @@ int lca(int u, int v) {
 		if(diff&(1<<j))
 			u=anc[u][j];
 	}
-	if(u==v) return u; // IMPORTANT
+	if(u==v) return u;
 	
 	// now both u and v are at the same level
 	for(int j=19; ~j; --j) {
