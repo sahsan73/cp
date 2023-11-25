@@ -9,6 +9,7 @@ We have two cases for a longest path:
 using namespace std;
 
 const int mxN=2e5;
+// d[i] --> height of a subtree (i)
 int n, d[mxN], ans;
 vector<int> adj[mxN];
 
@@ -29,8 +30,7 @@ int main() {
 		adj[a].push_back(b);
 		adj[b].push_back(a);
 	}
-
-	dfs(0, -1);
+	dfs();
 	cout << ans;
 
 	return 0;
