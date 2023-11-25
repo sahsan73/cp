@@ -18,17 +18,17 @@ vector<ar<int, 2>> adj[mxN];
 
 int main() {
 	cin >> n >> m;
-	for(int i, u, v, k; i<m; ++i) {
-		cin >> u >> v >> k, --u, --v;
-		adj[u].push_back({k, v});
-		adj[v].push_back({k, u});
+	for(int i=0, a, b, c; i<m; ++i) {
+		cin >> a >> b >> c, --a, --b;
+		adj[a].push_back({c, b});
+		adj[b].push_back({c, a});
 	}
 
-	priority_queue<ar<int, 2>, vector<ar<int, 2>>, greater<ar<int, 2>>> pq;
+	priority_queue<ar<ll, 2>, vector<ar<ll, 2>>, greater<ar<ll, 2>>> pq;
 	pq.push({0, 0});
-	ll a=0;
+	ll ans=0;
 	while(!pq.empty()) {
-		ar<int, 2> u=pq.top();
+		ar<ll, 2> u=pq.top();
 		pq.pop();
 		if(vis[u[1]])
 			continue;
@@ -36,10 +36,11 @@ int main() {
 			if(!vis[v[1]])
 				pq.push({v[0], v[1]});
 		}
-		a+=(ll)u[0];
+
+		ans+=u[0];
 		vis[u[1]]=1;
 	}
-	cout << a;
+	cout << ans;
 
 	return 0;
 }
@@ -55,7 +56,7 @@ using ll=long long;
 #define ar array
 
 const int mxN=1e4;
-int n, m, p[mxN], s[mxN];
+int n, m, p[mxN], r[mxN];
 vector<ar<int, 3>> e;
 
 int find(int u) {
@@ -65,32 +66,29 @@ int find(int u) {
 bool join(int u, int v) {
 	if((u=find(u))==(v=find(v)))
 		return 0;
-	if(s[u]<s[v])
+	if(r[u]<r[v])
 		swap(u, v);
 	p[v]=u;
-	s[u]+=s[v];
+	if(r[u]==r[v])
+		++r[u];
 	return 1;
 }
 
 int main() {
 	cin >> n >> m;
-	for(int i=0; i<m; ++i) {
-		int u, v, k;
-		cin >> u >> v >> k, --u, --v;
-		e.push_back({u, v, k});
+	for(int i=0, a, b, c; i<m; ++i) {
+		cin >> a >> b >> c, --a, --b;
+		e.push_back({c, a, b});
 	}
 
-	sort(e.begin(), e.end(), [](auto &e1, auto &e2){
-		return e1[2]<e2[2];
-	});
+	sort(e.begin(), e.end());
 	iota(p, p+n, 0);
-	fill(s, s+n, 1);
-	ll a=0;
+	ll ans=0;
 	for(int i=0; i<m; ++i) {
-		if(join(e[i][0], e[i][1]))
-			a+=(ll)e[i][2];
+		if(join(e[i][1], e[i][2]))
+			ans+=e[i][0];
 	}
-	cout << a;
+	cout << ans;
 
 	return 0;
 }
