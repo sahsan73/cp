@@ -26,10 +26,10 @@ int main() {
     for(int i=0, j=0; i<n&&j<m;) {
         if(a[i]-k<=b[j]&&b[j]<=a[i]+k)
             ++cnt, ++i, ++j;
-        else if(a[i]-k<b[j])
-            ++i;
-        else
+        else if(b[j]<a[i]-k)
             ++j;
+        else
+            ++i;
     }
     cout << cnt;
     
