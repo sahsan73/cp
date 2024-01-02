@@ -9,11 +9,9 @@ Explanation:
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
-using ll=long long;
 
 const int mxN=1e5, mxM=1e2, M=1e9+7;
-int n, m, x[mxN];
-ll dp[mxN][mxM+2];
+int n, m, x[mxN], dp[mxN][mxM+2];
 
 int main() {
     cin >> n >> m;
@@ -28,15 +26,15 @@ int main() {
     for(int i=1; i<n; ++i) {
         if(x[i]==0) {
             for(int j=1; j<=m; ++j)
-                dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%M;
+                dp[i][j]=((dp[i-1][j-1]+dp[i-1][j])%M+dp[i-1][j+1])%M;
         } else {
             for(int j=1; j<=m; ++j)
                 dp[i][j] = 0;
-            dp[i][x[i]] = (dp[i-1][x[i]-1]+dp[i-1][x[i]]+dp[i-1][x[i]+1])%M;
+            dp[i][x[i]] = ((dp[i-1][x[i]-1]+dp[i-1][x[i]])%M+dp[i-1][x[i]+1])%M;
         }
     }
     
-    ll ans=0;
+    int ans=0;
     for(int j=1; j<=m; ++j)
         ans = (ans + dp[n-1][j])%M;
     cout << ans;
