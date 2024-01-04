@@ -33,10 +33,17 @@ ll dfs(string &s, int i, int rx, bool ldb) {
 
 int main() {
     cin >> m >> d >> a >> b;
+
+    /* In digit DP problems, f(a, b) ==> f(0, b) - f(0, a-1)
+     *                    or             f(0, b) - f(0, a) + g(a)
+     *
+     * where, g(a) equals to 1 if "a" is a magic number!
+     */
     memset(dp, -1, sizeof(dp));
     int rc=dfs(b, 0, 0, 1);
     memset(dp, -1, sizeof(dp));
     int lc=dfs(a, 0, 0, 1);
+    // check if "a" is a magic number
     int res=1, rx=0;
     for(int i=0; i<a.size(); ++i) {
         int j=a[i]-'0';
@@ -47,7 +54,7 @@ int main() {
         rx=(rx*10+j)%m;
     }
     res=res&&(rx==0);
-    
+    //cout << "rc: " << rc << ", lc: " << lc << ", res: " << res << "\n";
     cout << (rc-lc+res+M)%M;
     
     return 0;
