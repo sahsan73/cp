@@ -2,6 +2,8 @@
 Click [here](https://cses.fi/problemset/task/1653) to see the problem statement.   
 
 Bitmask Dynamic Programming   
+Resources:
+* [USACO](https://usaco.guide/problems/cses-1653-elevator-rides/solution)
 
 #### Implementation
 ```cpp
