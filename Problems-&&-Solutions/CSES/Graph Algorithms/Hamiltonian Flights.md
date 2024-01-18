@@ -3,7 +3,10 @@ Click [here](https://cses.fi/problemset/task/1690) to see the problem statement.
 
 APPROACH: dfs + bitmask dp   
 
-### Implementation: Top - Down
+Resources
+* [HackerEarth](https://www.hackerearth.com/practice/algorithms/graphs/hamiltonian-path/tutorial/)
+
+#### Implementation: Top - Down
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
