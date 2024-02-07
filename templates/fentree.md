@@ -1,5 +1,6 @@
-const int mxN=1e5;  // maximum size of input array can have
-int n;  // actual size of input array
+```cpp
+const int mxN=1e5;
+int n;
 
 struct FenTree {
     ll a[mxN+1];
@@ -16,3 +17,4 @@ struct FenTree {
         return res;
     }
 } ft;
+```
